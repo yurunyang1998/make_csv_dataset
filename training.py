@@ -10,7 +10,7 @@ import sys
 N_CLASSES = 5
 IMG_W = 28  # resize the image, if the input image is too large, training will be very slow.
 IMG_H = 28
-BATCH_SIZE = 100
+BATCH_SIZE = 200
 CAPACITY = 2000
 MAX_STEP = 100000 # with current parameters, it is suggested to use MAX_STEP>10k
 learning_rate = 0.001 # with current parameters, it is suggested to use learning rate<0.0001
@@ -21,7 +21,7 @@ def run_training():
 
     # you need to change the directories to yours.
     train_dir = "D:\\csdn\\flower_photos\\"
-    logs_train_dir =  r'D:\\csdn\\logs\\'
+    logs_train_dir =  r'D:\catvsdog\logs\\'
     test_dir = r"D:\\csdn\\flower_test"
 
     train, train_label = input_file.get_files(train_dir)
@@ -59,7 +59,7 @@ def run_training():
                 summary_str = sess.run(summary_op)
                 train_writer.add_summary(summary_str, step)
 
-            if step % 2000 == 0 or (step + 1) == MAX_STEP:
+            if step % 1000 == 0 or (step + 1) == MAX_STEP:
                 checkpoint_path = os.path.join(logs_train_dir, 'model.ckpt')
                 saver.save(sess, checkpoint_path, global_step=step)
 
