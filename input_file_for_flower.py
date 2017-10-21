@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 import os
-import matplotlib.pyplot as plt
-#%%
+
+
 
 # you need to change this to your data directory
 CSV_NAME = "D:\\csdn\\flower_photos\\"
@@ -127,10 +127,10 @@ def get_batch(image, label, image_W, image_H, batch_size, capacity):
     #print(image_batch)
     #print(image_batch,4)
     #image_batch = tf.reshape(image_batch,[-1,129792])
-    print(image_batch,5)
+    #print(image_batch,5)
     #print(label_batch,4)
     #label_batch = tf.reshape(label_batch,[-1,5])
-    print(label_batch,5)
+    #print(label_batch,5)
     return image_batch, label_batch
 
 

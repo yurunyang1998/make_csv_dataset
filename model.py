@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-#%%
+
 def inference(images, batch_size, n_classes):
     '''Build the model
     Args:
@@ -104,8 +104,7 @@ def losses(logits, labels):
     Returns:
         loss tensor of float type
     '''
-    print(logits,6)
-    print(labels,5)
+
     with tf.variable_scope('loss') as scope:
         cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits\
                         (logits=logits, labels=labels, name='xentropy_per_example')
@@ -142,7 +141,8 @@ def evaluation(logits, labels):
     that were predicted correctly.
   """
   with tf.variable_scope('accuracy') as scope:
-      correct = tf.nn.in_top_k(logits, labels, 1)
+      correct = tf.nn.in_top_k(logits, labels,1)
+      #correct = tf.nn.in_top_k()
       correct = tf.cast(correct, tf.float16)
       accuracy = tf.reduce_mean(correct)
       tf.summary.scalar(scope.name+'/accuracy', accuracy)

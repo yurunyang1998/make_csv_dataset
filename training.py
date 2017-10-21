@@ -5,14 +5,14 @@ import input_file_for_flower as input_file
 import model
 import sys
 
-#%%
+
 
 N_CLASSES = 5
 IMG_W = 28  # resize the image, if the input image is too large, training will be very slow.
 IMG_H = 28
-BATCH_SIZE = 200
+BATCH_SIZE = 300
 CAPACITY = 2000
-MAX_STEP = 100000 # with current parameters, it is suggested to use MAX_STEP>10k
+MAX_STEP = 5000 # with current parameters, it is suggested to use MAX_STEP>10k
 learning_rate = 0.001 # with current parameters, it is suggested to use learning rate<0.0001
 
 
@@ -33,11 +33,16 @@ def run_training():
                                                           IMG_H,
                                                           BATCH_SIZE,
                                                           CAPACITY)
-    print(train_label_batch,4)
+    #print(train_label_batch,4)
     train_logits = model.inference(train_batch, BATCH_SIZE, N_CLASSES)
     train_loss = model.losses(train_logits, train_label_batch)
     train_op = model.trainning(train_loss, learning_rate)
-    train__acc = model.evaluation(train_logits, train_label_batch)
+
+
+    #################  这里改一下，如何设置测验集
+    train__acc = model.evaluation(train_logits,train_label_batch)
+    #############################
+
 
     summary_op = tf.summary.merge_all()
     sess = tf.Session()
@@ -60,8 +65,8 @@ def run_training():
                 train_writer.add_summary(summary_str, step)
 
             if step % 1000 == 0 or (step + 1) == MAX_STEP:
-                checkpoint_path = os.path.join(logs_train_dir, 'model.ckpt')
-                saver.save(sess, checkpoint_path, global_step=step)
+                checkpoint_path = os.path.join(logs_train_dir, 'file.ckpt')
+                saver.save(sess, checkpoint_path)
 
     except tf.errors.OutOfRangeError:
         print('Done training -- epoch limit reached')
